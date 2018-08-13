@@ -1,5 +1,10 @@
 from gensim.models import KeyedVectors
 
+max_cluster_size = $1
+similarity_level = $2
+model_type = $3
+model_file_name = $4
+
 # load the google word2vec model
 filename = 'GoogleNews-vectors-negative300.bin'
 model = KeyedVectors.load_word2vec_format(filename, binary=True)
@@ -21,11 +26,11 @@ for word in vocab_dict:
 #   print(current)
    ligne_2_write = word
    if not vocab_dict[word]:
-      similar_words = model.wv.most_similar(positive=word, topn=10)
+      similar_words = model.wv.most_similar(positive=word, topn=max_cluster_size)
       similar_count = 0
       for similar_word, weight in similar_words:
           vocab_dict[similar_word] = 1
-          if weight > 0.7:
+          if weight > similarity_level:
              similar_count += 1
              ligne_2_write = ligne_2_write + "," + similar_word
       ligne_2_write = ligne_2_write + "\n"
