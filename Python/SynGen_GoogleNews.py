@@ -1,9 +1,45 @@
+#!/usr/bin/python
+
+import sys, getopt
+
+def main(argv):
+   max_cluster_size = 0
+   similarity_level = 0.0
+   model_type = ''
+   model_filename = ''
+   output_filename = ''
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:m:l:t",["ifile=","ofile="])
+   except getopt.GetoptError:
+      print 'test.py -i <inputfile> -o <outputfile>'
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print 'SynGen.py -i <inputfile> -o <outputfile> -m <max_cluster_size> -l <similarity_level> -t <model_type>'
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         model_filename = arg
+      elif opt in ("-o", "--ofile"):
+         output_filename = arg
+      elif opt in ("-m", "--max"):
+         max_cluster_size = arg
+      elif opt in ("-l", "--level"):
+         similarity_level = arg
+      elif opt in ("-t", "--type"):
+         model_type = arg
+   print 'Input file is "', model_filename
+   print 'Output file is "', model_type
+   print 'Output file is "', output_filename
+   print 'Output file is "', max_cluster_size
+   print 'Output file is "', similarity_level
+   
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
 from gensim.models import KeyedVectors
 
-max_cluster_size = $1
-similarity_level = $2
-model_type = $3
-model_file_name = $4
+
 
 # load the google word2vec model
 filename = 'GoogleNews-vectors-negative300.bin'
